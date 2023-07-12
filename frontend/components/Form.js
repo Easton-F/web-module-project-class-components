@@ -1,11 +1,12 @@
 import React from 'react'
 
-export default class Form extends React.Component {
-  render() {
-    return (
-      <div>
-        Form
-      </div>
-    )
+class TodoForm extends React.Component {
+  render () {
+    return (  <form>
+      <input type='text' placeholder='Add a Todo'/>
+      <button>Add</button>
+    </form>)
   }
 }
+
+export default TodoForm;
