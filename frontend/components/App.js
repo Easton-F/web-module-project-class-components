@@ -9,7 +9,7 @@ export default class App extends React.Component {
       todos: [
         {
           name: 'Organize Garage',
-          id: 1528817077286, // could look different, you could use a timestamp to generate it
+          id: 1528817077286, 
           completed: false
         },
         {
@@ -20,17 +20,55 @@ export default class App extends React.Component {
       ]
     }
   }
+
+  handleToggle = (clickedId) => {
+
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.map(todo => {
+        if (todo.id === clickedId) {
+          return {
+            ...todo,
+            completed: !todo.completed
+          }
+        } 
+          
+        return todo;
+      })
+    });
+  }
+
+  handleAdd = (name) => {
+    const newTodo = {
+      name: name,
+      id: Date.now(),
+      completed: false
+    };
+
+    this.setState({
+      ...this.state,
+      todos: [...this.state.todos, newTodo]
+    });
+  }
+
+  handleClear = () => {
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.filter(todo => {
+        return (todo.completed === false);
+      })
+    });
+  }
+
   render() {
     const { todos } = this.state;
     console.log(todos);
     return (
       <div>
         <h1>Todos</h1>
-
-        <TodoList todos={todos}/>
-        <TodoForm />
-
-        <button>Clear</button>
+        <TodoList handleToggle={this.handleToggle} todos={todos}/>
+        <TodoForm handleAdd={this.handleAdd}/>
+        <button onClick={this.handleClear}>Clear</button>
       </div>
     )
   }
